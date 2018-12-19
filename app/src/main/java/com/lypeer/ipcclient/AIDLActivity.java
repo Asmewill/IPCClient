@@ -12,15 +12,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.lypeer.ipcclient.Book;
-
 import java.util.List;
 
 /**
  * 客户端的AIDLActivity.java
  * 由于测试机的无用debug信息太多，故log都是用的e
- *
+ * <p/>
  * Created by lypeer on 2016/7/17.
+ * https://www.jianshu.com/p/abfb97308629
  */
 public class AIDLActivity extends AppCompatActivity {
 
@@ -44,7 +43,7 @@ public class AIDLActivity extends AppCompatActivity {
      *
      * @param view
      */
-    public void addBookIn(View view) {
+    public void addBook(View view) {
         //如果与服务端的连接处于未连接状态，则尝试连接
         if (!mBound) {
             attemptToBindService();
@@ -57,47 +56,8 @@ public class AIDLActivity extends AppCompatActivity {
         book.setName("APP研发录In");
         book.setPrice(30);
         try {
-            //获得服务端执行方法的返回值，并打印输出
-            Book returnBook = mBookManager.addBookIn(book);
-            Log.e(getLocalClassName(), returnBook.toString());
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void addBookOut(View view) {
-        if (!mBound) {
-            attemptToBindService();
-            Toast.makeText(this, "当前与服务端处于未连接状态，正在尝试重连，请稍后再试", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if (mBookManager == null) return;
-
-        Book book = new Book();
-        book.setName("APP研发录Out");
-        book.setPrice(30);
-        try {
-            Book returnBook = mBookManager.addBookOut(book);
-            Log.e(getLocalClassName(), returnBook.toString());
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void addBookInout(View view) {
-        if (!mBound) {
-            attemptToBindService();
-            Toast.makeText(this, "当前与服务端处于未连接状态，正在尝试重连，请稍后再试", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if (mBookManager == null) return;
-
-        Book book = new Book();
-        book.setName("APP研发录Inout");
-        book.setPrice(30);
-        try {
-            Book returnBook = mBookManager.addBookInout(book);
-            Log.e(getLocalClassName(), returnBook.toString());
+            mBookManager.addBookIn(book);
+            Log.i(getLocalClassName(), "客户端获取BookList:"+mBookManager.getBooks().toString()+"----获取String："+mBookManager.getString());
         } catch (RemoteException e) {
             e.printStackTrace();
         }
