@@ -57,6 +57,7 @@ public class AIDLActivity extends AppCompatActivity {
         book.setPrice(30);
         try {
             mBookManager.addBookIn(book);
+            Toast.makeText(this, "----获取服务端返回的String："+mBookManager.getString(), Toast.LENGTH_SHORT).show();
             Log.i(getLocalClassName(), "客户端获取BookList:"+mBookManager.getBooks().toString()+"----获取String："+mBookManager.getString());
         } catch (RemoteException e) {
             e.printStackTrace();
